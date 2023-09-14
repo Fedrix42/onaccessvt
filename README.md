@@ -9,7 +9,7 @@ The tool does not yet supports file uploading so it makes a requests to VirusTot
 ## Check other solutions
 This project is ispired by [ClamAV](https://www.clamav.net/) OnAccess scanning feature.\
 I was searching for a security solution for my linux distro but I found ClamAV really slow when doing scanning(I mean, that's a real malware scan while here we are doing just a request to third-party service).\
-**So if you want a real anti-virus/anti-malware go for ClamAV**, if you are looking for a less stable but lightweight solution then may this can help you.
+**So if you want a real anti-virus/anti-malware go for ClamAV**, if you are looking for a less stable but lightweight solution then this may help you.
 
 ## Requirements
   * VirusTotal Account with a API-KEY, currently free with some limitations: [VT Public API limitations](https://developers.virustotal.com/reference/public-vs-premium-api)
