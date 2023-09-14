@@ -42,8 +42,13 @@ notify-send --version
 If you see `notify-send: command not found ` probably notifications are not supported in your OS.
 ## Installation
 The software is made out of 2 main components: OnAccessVT Monitor and OnAccessVT Interface\
-Theese two components need to be executed with some arguments you must set on files setup.sh and onaccessvt.start\
-Open the two files with a text editor and set the arguments according to the following usages in the variables `interface_args` in onaccessvt.start and `monitor_args` in setup.sh
+Theese two components need to be executed with some arguments you must set on files **setup.sh** and **onaccessvt.start**\
+
+* Download the repository from github and unzip it(You can use curl, wget or git if you want to download it from terminal)\
+```
+git clone https://github.com/Fedrix42/onaccessvt.git
+```
+* Open the two files in the repo with a text editor and set the arguments according to the following usages in the variables `interface_args` in onaccessvt.start and `monitor_args` in setup.sh (Example below)
 
 ### Usage of monitor
 ```
@@ -65,6 +70,61 @@ options:
   -v, --verbose  If set show a notification for every event detected even if they have 0 malicious entries
   --nt NT        The timeout, expressed in SECONDS, for notifications - DEFAULT is 5
 ```
+
+### > Example
+My user in my OS is `frank`\
+My api key is: `abc12345`\
+I want to receave notifications even if a file has 0 malicious entries\
+I want to recursively monitor folders: `/home/ubuntu/Desktop/f1` and `/home/ubuntu/Desktop/f2`
+#### setup.sh
+```
+user='frank'
+monitor_args='-r /home/ubuntu/Desktop/f1 /home/ubuntu/Desktop/f2'
+...
+```
+
+#### onaccessvt.start
+```
+interface_args='-v abc12345'
+...
+```
+### Final step of installation
+```
+cd onaccessvt && sudo ./setup.sh
+```
+Now you should be done. At reboot the software should start and you should see a notification of success come up.
+If there is any error or you think something is not working(No notifications appear when file are created) then go to Troubleshooting section below.
+
+## Troubleshooting
+### Folders used by software
+  * /opt/onaccessvt --> Contains source code and binaries executed at startup
+  * /var/log/onaccessvt --> Contains log file with errors and detected events for interface and monitor components
+  * /tmp/on_accessvt_fifo --> Named pipe/fifo created for IPC, deleted when monitor component shuts down
+  * `crontab -e` --> Contains the crontab directives to start the monitor and the interface at boot
+
+First thing you can check are the arguments. The folders you specify in the monitor argument should exists and the API key in the interface arguments should be valid(Check logs for this types of errors).\
+Then you should check that crontab records was created correctly:
+```
+crontab -e
+```
+You should something like this(Comments could have been deleated):\
+![image](https://github.com/Fedrix42/onaccessvt/assets/144663254/e52cda74-d446-4742-af85-9f183f949fb9)
+```
+sudo crontab -e
+```
+You should something like this(Comments could have been deleated):\
+![image](https://github.com/Fedrix42/onaccessvt/assets/144663254/e01318b3-bd19-48bc-bf97-dcaf76ed9d62)
+
+Check if you installed vt-py library:
+```
+pip list | grep vt-py
+```
+Check if you installed python3-tk library(Tkinter):
+```
+sudo apt list | grep python3-tk
+```
+
+
 
 
 
