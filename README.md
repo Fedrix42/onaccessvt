@@ -95,6 +95,11 @@ monitor_args='-r /home/ubuntu/Desktop/f1 /home/ubuntu/Desktop/f2'
 interface_args='-v abc12345'
 ...
 ```
+On file **onaccessvt.start** you should also set DBUS environment variable according to the result of command:
+```
+env | grep DBUS_SESSION_BUS_ADDRESS  
+```
+
 ### Final step of installation
 ```
 cd onaccessvt && sudo ./setup.sh
