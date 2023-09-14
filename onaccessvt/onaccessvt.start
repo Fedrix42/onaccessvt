@@ -1,0 +1,22 @@
+#!/bin/bash
+interface_args='INSERT-API-KEY-HERE'
+while :
+do
+	sleep 1m #wait 1 minute from the start of the system
+	if [[ $(loginctl | grep seat0) ]] #check if the user has logged, if not wait until it log on
+	then
+		break
+	fi
+done
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+#!!!!	This environment variable should be set according to the value you find doing: env | grep DBUS_SESSION_BUS_ADDRESS  !!!!
+#Default value should work in most of the cases I guess
+
+if ! [[ $(ps -ef | grep onaccessvt_monitor | grep -v grep) ]] #Check if monitor started
+then
+	notify-send -u critical "OnAccessVT Interface Error" "Can't load interface, start onaccessvt_monitor.service first!"
+	echo "Can't load interface, start onaccessvt_monitor.service first!" >> /home/fedrix/Desktop/startERR 
+else
+	notify-send "OnAccessVT Interface Started" "OnAccessVT interface started, monitoring the system..."
+	/usr/bin/python3 /opt/onaccessvt/interface/src/main.py $interface_args
+fi
