@@ -1,8 +1,15 @@
 # OnAccess VirusTotal Scanner
-OnAccess VirusTotal Scanner (OnAccessVT shortened) is a software, designed for linux, that scans files created in specified directories using VirusTotal engine.
-The tool does not yet supports file uploading so it makes a requests to VirusTotal API with the file HASH and retrieve the answer displaying it to the user.
+OnAccess VirusTotal Scanner (OnAccessVT shortened) is a software, designed for linux, that scans files created in specified directories using VirusTotal engine.\
+The tool does not yet supports file uploading so it makes a requests to VirusTotal API with the file HASH, retrieve the answer and display the result to the user.\
+![Screenshot from 2023-09-14 18-09-11](https://github.com/Fedrix42/onaccessvt/assets/144663254/f668a7f8-8e0b-4b65-99b5-551cff1519b8)
+
 
 **Software is currently tested and working on Ubuntu 22.04 and 23.04, not guaranteed it works on other environments**
+
+## Check other solutions
+This project is ispired by [ClamAV](https://www.clamav.net/) OnAccess scanning feature.\
+I was searching for a security solution for my linux distro but I found ClamAV really slow when doing scanning(I mean, that's a real malware scan while here we are doing just a request to third-party service).\
+**So if you want a real anti-virus/anti-malware go for ClamAV**, if you are looking for a less stable but lightweight solution then may this can help you.
 
 ## Requirements
   * VirusTotal Account with a API-KEY, currently free with some limitations: [VT Public API limitations](https://developers.virustotal.com/reference/public-vs-premium-api)
@@ -39,7 +46,7 @@ If you see `gcc: command not found ` you probably need to install gcc (Usually w
 ```
 notify-send --version
 ```
-If you see `notify-send: command not found ` probably notifications are not supported in your OS.
+If you see `notify-send: command not found ` maybe notifications are not supported in your OS as they are in Ubuntu.
 ## Installation
 The software is made out of 2 main components: OnAccessVT Monitor and OnAccessVT Interface\
 Theese two components need to be executed with some arguments you must set on files **setup.sh** and **onaccessvt.start**\
@@ -124,6 +131,16 @@ Check if you installed python3-tk library(Tkinter):
 sudo apt list | grep python3-tk
 ```
 
+## Disclaimer
+I'm a student and I worked on this project alone, there a lot of of things which should be done better but it requires time and skill so suggestions and pull requests are really appreciated.
+
+## To-Do
+ - [ ] Better and easier installation process
+ - [ ] Improve stability
+ - [ ] File uploading
+ - [ ] URL Scan
+ - [ ] Better GUI and notifications
+ - [ ] Implementation for other scanning platforms(Karspersky Threat Center, ...)
 
 
 
