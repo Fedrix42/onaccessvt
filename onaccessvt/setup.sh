@@ -1,5 +1,5 @@
-user='ubuntu'
-monitor_args='/home/fedrix/Desktop/test/'
+user='Insert your user here'
+monitor_args='Insert Monitor Args Here(See README)'
 
 #---Dependencies
 sudo -u $user pip install vt-py
