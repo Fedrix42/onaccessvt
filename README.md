@@ -8,6 +8,7 @@ The tool does not yet supports file uploading so it makes a requests to VirusTot
   * VirusTotal Account with a API-KEY, currently free with some limitations: [VT Public API limitations](https://developers.virustotal.com/reference/public-vs-premium-api)
   * Linux kernel version >= 5.9
   * Linux kernel fanotify API enabled
+  * Root permissions for installation
   * vt-py (Installed during setup, is the official VirusTotal API library for Python3)
   * python3-tk (Installed during setup, is a GUI library for Python3)
   * gcc (Usually pre-installed with OS, is a compiler for C language)
@@ -39,3 +40,13 @@ If you see `gcc: command not found ` you probably need to install gcc (Usually w
 notify-send --version
 ```
 If you see `notify-send: command not found ` probably notifications are not supported in your OS.
+## Installation
+The software is made out of 2 main components: OnAccessVT Monitor and OnAccessVT Interface
+The first one monitor the directories specified in the arguments and exchange information on the created file with the interface using a named pipe.
+The second component (the interface) read data from the named pipe, send the request to virustotal and inform the user of the result.
+
+Theese two components need to be executed with some arguments you must set.
+
+### Usage of monitor
+
+
