@@ -14,3 +14,28 @@ The tool does not yet supports file uploading so it makes a requests to VirusTot
   * notify-send (Usually pre-installed with OS, is a tool used to send notifications to the user)
 
 ## Requirements check
+### Linux kernel version
+``` 
+uname -r
+```
+### Linux fanotify API enabled
+``` 
+cat /boot/config-<kernel_version>  | grep FANOTIFY
+```
+
+You should see the following:
+```
+CONFIG_FANOTIFY=y
+CONFIG_FANOTIFY_ACCESS_PERMISSIONS=y
+```
+If you see ` CONFIG_FANOTIFY_ACCESS_PERMISSIONS is not set ` the software `will not work`.
+### gcc
+```
+gcc --version
+```
+If you see `gcc: command not found ` you probably need to install gcc (Usually with apt).
+### notify-send
+```
+notify-send --version
+```
+If you see `notify-send: command not found ` probably notifications are not supported in your OS.
