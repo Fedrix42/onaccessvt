@@ -9,6 +9,7 @@ The tool does not yet supports file uploading so it makes a requests to VirusTot
   * Linux kernel version >= 5.9
   * Linux kernel fanotify API enabled
   * Root permissions for installation
+  * Crontab for user and root
   * vt-py (Installed during setup, is the official VirusTotal API library for Python3)
   * python3-tk (Installed during setup, is a GUI library for Python3)
   * gcc (Usually pre-installed with OS, is a compiler for C language)
@@ -23,7 +24,6 @@ uname -r
 ``` 
 cat /boot/config-<kernel_version>  | grep FANOTIFY
 ```
-
 You should see the following:
 ```
 CONFIG_FANOTIFY=y
@@ -41,12 +41,30 @@ notify-send --version
 ```
 If you see `notify-send: command not found ` probably notifications are not supported in your OS.
 ## Installation
-The software is made out of 2 main components: OnAccessVT Monitor and OnAccessVT Interface
-The first one monitor the directories specified in the arguments and exchange information on the created file with the interface using a named pipe.
-The second component (the interface) read data from the named pipe, send the request to virustotal and inform the user of the result.
-
-Theese two components need to be executed with some arguments you must set.
+The software is made out of 2 main components: OnAccessVT Monitor and OnAccessVT Interface\
+Theese two components need to be executed with some arguments you must set on files setup.sh and onaccessvt.start\
+Open the two files with a text editor and set the arguments according to the following usages in the variables `interface_args` in onaccessvt.start and `monitor_args` in setup.sh
 
 ### Usage of monitor
+```
+$ ./onaccessvt_monitor
+!This program should be run with super-user(root) permission!
+Usage: ./monitor/bin/onaccessvt_monitor [-r] [FOLDER...]
+You can specify more folders separed by spaces
+Options: 
+-r, recursive mode: monitor every specified folder recursively(Use with caution, may impact performance)
+```
+### Usage of interface
+```
+$ python3 main.py --help
+usage: main.py [-h] [-v] [--nt NT] api-key
+positional arguments:
+  api-key        The API key from virus total website(account required)
+options:
+  -h, --help     show this help message and exit
+  -v, --verbose  If set show a notification for every event detected even if they have 0 malicious entries
+  --nt NT        The timeout, expressed in SECONDS, for notifications - DEFAULT is 5
+```
+
 
 
