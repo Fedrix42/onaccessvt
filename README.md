@@ -55,7 +55,7 @@ Now you should be done. At reboot the software should start and you should see a
 If there is any error or you think something is not working(No notifications appear when file are created) then go to Troubleshooting section below.
 
 ## How to build
-Interface component is written in python and it's executed by source code but if you want compile it you try with [Cython](https://cython.org/) (But probably will not work).\
+Interface component is written in python and it's executed by source code but if you want compile it try with [Cython](https://cython.org/) (But probably will not work).\
 To compile monitor component(which is written in C) you can use gcc:
 ```
 gcc onaccessvt/monitor/src/main.c onaccessvt/monitor/src/mark.c onaccessvt/monitor/src/logger.c onaccessvt/monitor/src/set_config.c -o onaccessvt/monitor/bin/onaccessvt_monitor
