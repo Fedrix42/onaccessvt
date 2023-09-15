@@ -73,12 +73,12 @@ Then you should check that crontab records was created correctly:
 ```
 crontab -e
 ```
-You should something like this(Comments could have been deleated):\
+You should something like this(Comments could have been deleted):\
 ![image](https://github.com/Fedrix42/onaccessvt/assets/144663254/e52cda74-d446-4742-af85-9f183f949fb9)
 ```
 sudo crontab -e
 ```
-You should something like this(Comments could have been deleated):\
+You should something like this(Comments could have been deleted):\
 ![image](https://github.com/Fedrix42/onaccessvt/assets/144663254/e01318b3-bd19-48bc-bf97-dcaf76ed9d62)
 
 Check if you installed vt-py library:
