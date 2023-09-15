@@ -24,10 +24,10 @@ I was searching for a security solution for my linux distro but I found ClamAV r
 
 ## [Requirements check](check_requirements.md)
 ## Installation
-The software is made out of 2 main components: OnAccessVT Monitor and OnAccessVT Interface\
-Theese two components need to be executed with some arguments you must set on files **setup.sh** and **onaccessvt.start**\
+The software is made out of 2 main components: OnAccessVT Monitor and OnAccessVT Interface
+Theese two components need to be executed with some arguments you must set on files **setup.sh** and **onaccessvt.start**
 
-* Download the repository from github and unzip it(You can use curl, wget or git if you want to download it from terminal)\
+* Download the repository from github and unzip it(You can use curl, wget, git or use the download button)
 ```
 git clone https://github.com/Fedrix42/onaccessvt.git
 ```
@@ -57,7 +57,7 @@ options:
 ### > Example
 My user in my OS is `frank`\
 My api key is: `abc12345`\
-I want to receave notifications even if a file has 0 malicious entries\
+I want to receive notifications even if a file has 0 malicious entries\
 I want to recursively monitor folders: `/home/ubuntu/Desktop/f1` and `/home/ubuntu/Desktop/f2`
 #### setup.sh
 ```
@@ -84,7 +84,7 @@ Now you should be done. At reboot the software should start and you should see a
 If there is any error or you think something is not working(No notifications appear when file are created) then go to Troubleshooting section below.
 
 ## How to build
-Interface component is written in python and it's executed by source code but if you want compile it you try with [Cython](https://cython.org/) (But probably will not work).
+Interface component is written in python and it's executed by source code but if you want compile it you try with [Cython](https://cython.org/) (But probably will not work).\
 To compile monitor component(which is written in C) you can use gcc:
 ```
 gcc onaccessvt/monitor/src/main.c onaccessvt/monitor/src/mark.c onaccessvt/monitor/src/logger.c -o onaccessvt/monitor/bin/onaccessvt_monitor
