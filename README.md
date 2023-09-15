@@ -27,61 +27,29 @@ I was searching for a security solution for my linux distro but I found ClamAV r
 
 ## [Requirements check](check_requirements.md)
 ## Installation
-The software is made out of 2 main components: OnAccessVT Monitor and OnAccessVT Interface
-Theese two components need to be executed with some arguments you must set on files **setup.sh** and **onaccessvt.start**
-
-* Download the repository from github and unzip it(You can use curl, wget, git or use the download button)
+### Download the repository from github and unzip it(You can use curl, wget, git or use the download button)
 ```
 git clone https://github.com/Fedrix42/onaccessvt.git
 ```
-* Open the two files in the repo with a text editor and set the arguments according to the following usages in the variables `interface_args` in onaccessvt.start and `monitor_args` in setup.sh (Example below)
-
-### Usage of monitor
+### Open file onaccessvt_interface.start and set the environment variable according to the comment.
 ```
-$ ./onaccessvt_monitor
-!This program should be run with super-user(root) permission!
-Usage: ./monitor/bin/onaccessvt_monitor [-r] [FOLDER...]
-You can specify more folders separed by spaces
-Options: 
--r, recursive mode: monitor every specified folder recursively(Use with caution, may impact performance)
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+#This environment variable should be set according to the value you find doing: env | grep DBUS_SESSION_BUS_ADDRESS  
+#Default value should work in most of the cases I guess
 ```
-### Usage of interface
+### Open setup.sh and change the variable 'user' with your OS user
+You can check your username in terminal by typing:
 ```
-$ python3 main.py --help
-usage: main.py [-h] [-v] [--nt NT] api-key
-positional arguments:
-  api-key        The API key from virus total website(account required)
-options:
-  -h, --help     show this help message and exit
-  -v, --verbose  If set show a notification for every event detected even if they have 0 malicious entries
-  --nt NT        The timeout, expressed in SECONDS, for notifications - DEFAULT is 5
+whoami
 ```
 
-### > Example
-My user in my OS is `frank`\
-My api key is: `abc12345`\
-I want to receive notifications even if a file has 0 malicious entries\
-I want to recursively monitor folders: `/home/ubuntu/Desktop/f1` and `/home/ubuntu/Desktop/f2`
-#### setup.sh
+### Configurations
+* Set the folders you want to monitor in file onaccessvt/monitor/monitor.config according to comments.
+* Set your api-key and the verbosity in file onaccessvt/interface/interface.config according to comments.
+### Final step
+**Be sure you are into the folder containing setup.sh**
 ```
-user='frank'
-monitor_args='-r /home/ubuntu/Desktop/f1 /home/ubuntu/Desktop/f2'
-...
-```
-
-#### onaccessvt.start
-```
-interface_args='-v abc12345'
-...
-```
-On file **onaccessvt.start** you should also set DBUS environment variable according to the result of command:
-```
-env | grep DBUS_SESSION_BUS_ADDRESS  
-```
-
-### Final step of installation
-```
-cd onaccessvt && sudo ./setup.sh
+chmod +x setup.sh && sudo ./setup.sh
 ```
 Now you should be done. At reboot the software should start and you should see a notification of success come up.
 If there is any error or you think something is not working(No notifications appear when file are created) then go to Troubleshooting section below.
@@ -90,7 +58,7 @@ If there is any error or you think something is not working(No notifications app
 Interface component is written in python and it's executed by source code but if you want compile it you try with [Cython](https://cython.org/) (But probably will not work).\
 To compile monitor component(which is written in C) you can use gcc:
 ```
-gcc onaccessvt/monitor/src/main.c onaccessvt/monitor/src/mark.c onaccessvt/monitor/src/logger.c -o onaccessvt/monitor/bin/onaccessvt_monitor
+gcc onaccessvt/monitor/src/main.c onaccessvt/monitor/src/mark.c onaccessvt/monitor/src/logger.c onaccessvt/monitor/src/set_config.c -o onaccessvt/monitor/bin/onaccessvt_monitor
 ```
 
 ## Troubleshooting
@@ -126,7 +94,7 @@ sudo apt list | grep python3-tk
 I'm a student and I worked on this project alone, there a lot of of things which should be done better but it requires time and skill so suggestions and pull requests are really appreciated.
 
 ## To-Do
- - [ ] Better and easier installation process
+ - [x] Better and easier installation/configuration process
  - [ ] Improve stability
  - [ ] File uploading
  - [ ] URL Scan
