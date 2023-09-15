@@ -22,31 +22,7 @@ I was searching for a security solution for my linux distro but I found ClamAV r
   * gcc (Usually pre-installed with OS, is a compiler for C language)
   * notify-send (Usually pre-installed with OS, is a tool used to send notifications to the user)
 
-## Requirements check
-### Linux kernel version
-``` 
-uname -r
-```
-### Linux fanotify API enabled
-``` 
-cat /boot/config-<kernel_version>  | grep FANOTIFY
-```
-You should see the following:
-```
-CONFIG_FANOTIFY=y
-CONFIG_FANOTIFY_ACCESS_PERMISSIONS=y
-```
-If you see ` CONFIG_FANOTIFY_ACCESS_PERMISSIONS is not set ` the software `will not work`.
-### gcc
-```
-gcc --version
-```
-If you see `gcc: command not found ` you probably need to install gcc (Usually with apt).
-### notify-send
-```
-notify-send --version
-```
-If you see `notify-send: command not found ` maybe notifications are not supported in your OS as they are in Ubuntu.
+## [Requirements check](check_requirements.md)
 ## Installation
 The software is made out of 2 main components: OnAccessVT Monitor and OnAccessVT Interface\
 Theese two components need to be executed with some arguments you must set on files **setup.sh** and **onaccessvt.start**\
