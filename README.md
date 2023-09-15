@@ -1,11 +1,15 @@
 # OnAccess VirusTotal Scanner
-OnAccess VirusTotal Scanner (OnAccessVT shortened) is a software, designed for linux, that scans files created in specified directories using VirusTotal engine.\
+OnAccess VirusTotal Scanner (OnAccessVT shortened) is a software, designed for linux, which scans files created in specified directories using VirusTotal engine.\
 The tool does not yet supports file uploading so it makes a requests to VirusTotal API with the file HASH, retrieve the answer and display the result to the user.\
 ![Screenshot from 2023-09-14 18-09-11](https://github.com/Fedrix42/onaccessvt/assets/144663254/f668a7f8-8e0b-4b65-99b5-551cff1519b8)
 
+Features:
+* Automatic detection of browser downloads
+* Recursive mode
+* Multiple folders monitoring
+* Notifications and event logging
 
 **Software is currently tested and working on Ubuntu 22.04 and 23.04, not guaranteed it works on other environments**
-
 ## Check other solutions
 This project is ispired by [ClamAV](https://www.clamav.net/) OnAccess scanning feature.\
 I was searching for a security solution for my linux distro but I found ClamAV really slow when doing scanning(I mean, that's a real malware scan while here we are doing just a request to third-party service).\
@@ -15,12 +19,11 @@ I was searching for a security solution for my linux distro but I found ClamAV r
   * VirusTotal Account with a API-KEY, currently free with some limitations: [VT Public API limitations](https://developers.virustotal.com/reference/public-vs-premium-api)
   * Linux kernel version >= 5.9
   * Linux kernel fanotify API enabled
-  * Root permissions for installation
-  * Crontab for user and root
-  * vt-py (Installed during setup, is the official VirusTotal API library for Python3)
-  * python3-tk (Installed during setup, is a GUI library for Python3)
   * gcc (Usually pre-installed with OS, is a compiler for C language)
   * notify-send (Usually pre-installed with OS, is a tool used to send notifications to the user)
+### Dependencies (Installed by setup.sh)
+  * vt-py -> Is the official VirusTotal API library for Python3
+  * python3-tk -> Is a GUI library for Python3
 
 ## [Requirements check](check_requirements.md)
 ## Installation
