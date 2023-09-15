@@ -1,12 +1,4 @@
-USAGE = """\
-Usage: {argv} [-v] -a (api-key) -dt (download_timeout) -nt(notifications_timeout) [fifo_path]
-    -> -v, verbose: Optional, if set show a notification for every event detected even if they have 0 malicious entries
-    -> -a, api-key: is the API key from virus total website(account required)
-    -> -dt, download_timeout: is the timeout, expressed in MINUTES, that the process will wait for the completion of big file downloads
-    -> -nt, notifications_timeout: is the timeout, expressed in SECONDS, for notifications
-Check documentation for more info...
-"""
-START = "This program should be run only when event monitor is already running.\nOpening FIFO..."
+START = "Program started, it should run only when event monitor is already running.\nOpening FIFO..."
 EVENT_DATA = (
     "PID: {pid}\nDirectory path: {dir}\nEntry name: {file}\nInode: {inode}\nProcess name: {pname}\n"
 )

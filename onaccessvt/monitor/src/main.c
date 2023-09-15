@@ -16,6 +16,7 @@
 #include "mark.h"
 #include "logger.h"
 #include "usage.h"
+#include "set_config.h"
 
 #define CHECK(X) ({int __val = (X); if(__val == -1){logToFile("ERROR (%s:%d) -- %s\n", __FILE__, __LINE__, strerror(errno));exit(EXIT_FAILURE);} }) 
 
@@ -48,11 +49,8 @@ static unsigned int fan_init_flags =
 
 
 int main(int argc, char *argv[]){
+	set_config();
 	create_log_file();
-	if(argc < 2){
-		logToFile(ERR_MSG_USAGE, argv[0]);
-       	exit(EXIT_FAILURE);
-	}
 	atexit(exit_routine);
 
 	if(signal(SIGINT, sighandler) == SIG_ERR){
@@ -72,12 +70,9 @@ int main(int argc, char *argv[]){
 	
 	logToFile("Type 'q' key to terminate.\n");
 
-	bool recursive_mode = false;
-	recursive_mode = !strcmp(argv[1], "-r") ? true : false;
+	logToFile("Recursive mode: %s \n", recursive ? "ON" : "OFF");
 
-	logToFile("Recursive mode: %s \n", recursive_mode ? "ON" : "OFF");
-
-	logToFile(MSG_ADD_OF_DIR, mark(argc, argv, fanotifty_fd, recursive_mode));
+	logToFile(MSG_ADD_OF_DIR, mark(fanotifty_fd, recursive));
 
 	monitor_events();
 

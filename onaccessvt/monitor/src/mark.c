@@ -10,6 +10,7 @@
 #include "mark.h"
 #include "usage.h"
 #include "logger.h"
+#include "set_config.h"
 
 #define CHECK(X) ({int __val = (X); if(__val == -1){logToFile("ERROR (%s:%d) -- %s\n", __FILE__, __LINE__, strerror(errno));exit(EXIT_FAILURE);} }) 
 
@@ -22,36 +23,36 @@ static unsigned int fan_mask =
 	FAN_ONDIR
 	);
 
-int mark(int argc, char *argv[], int fanotify_fd, bool recursive){
+int mark(int fanotify_fd, bool recursive){
 	/*Call the needed function based on the recursive value*/
 	fd = fanotify_fd;
 	if(recursive)
-		add_mark_recursive(argc, argv);
+		add_mark_recursive();
 	else
-		add_mark(argc, argv);
+		add_mark();
 	return monitored_dir_counter;
 }
 
-static void add_mark(int argc, char *argv[]){
-	/*Mark one or more directories based on argv so we can monitor thoose folders*/
-	monitored_dir_counter = (argc - 1);
+static void add_mark(){
+	/*Mark one or more directories based on monitored_folders got by config file so we can monitor thoose monitored_folders*/
+	monitored_dir_counter = input_dir_counter;
 	char *input_path;
 	char *marked_absolute_path;
-	for(int c = 1; argv[c] != NULL; ++c){
-		input_path = argv[c];
+	for(size_t i = 0; i < input_dir_counter; i++){
+		input_path = monitored_folders[i];
 		marked_absolute_path = realpath(input_path, NULL);
 		CHECK(fanotify_mark(fd, FAN_MARK_ADD, fan_mask, AT_FDCWD, input_path));
 		logToFile(MSG_MONITORING_IN, marked_absolute_path);
 	}
 }
 
-static void add_mark_recursive(int argc, char *argv[]){
+static void add_mark_recursive(){
 	/*Mark directories in a recursive way using nftw to go through the path tree*/
 	int nftw_result;
 	char *input_path;
 
-	for(int c = 2; argv[c] != NULL; ++c){
-		input_path = argv[c];
+	for(size_t i = 0; i < input_dir_counter; i++){
+		input_path = monitored_folders[i];
 		CHECK(nftw(input_path, add_entry, USE_FDS, FTW_PHYS));
 	}
 	

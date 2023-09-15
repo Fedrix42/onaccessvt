@@ -1,5 +1,10 @@
 #!/bin/bash
-interface_args='INSERT-API-KEY-HERE'
+
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+#!!!!	This environment variable should be set according to the value you find doing: env | grep DBUS_SESSION_BUS_ADDRESS  !!!!
+#Default value should work in most of the cases I guess
+
+
 while :
 do
 	sleep 1m #wait 1 minute from the start of the system
@@ -8,9 +13,6 @@ do
 		break
 	fi
 done
-export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
-#!!!!	This environment variable should be set according to the value you find doing: env | grep DBUS_SESSION_BUS_ADDRESS  !!!!
-#Default value should work in most of the cases I guess
 
 if ! [[ $(ps -ef | grep onaccessvt_monitor | grep -v grep) ]] #Check if monitor started
 then

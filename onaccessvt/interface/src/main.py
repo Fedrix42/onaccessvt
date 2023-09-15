@@ -8,9 +8,8 @@ import os
 import sys
 import signal
 
-import argparse
-
 FIFO_PATH = "/tmp/on_accessvt_fifo"
+CONFIG_PATH = "/opt/onaccessvt/interface/interface.config"
 requestsHandler = VTRequestsHandler()
 logger = Logger()
 browserEventsHandler = BrowserEventsHandler(requestsHandler, logger)
@@ -20,7 +19,7 @@ browserEventsHandler = BrowserEventsHandler(requestsHandler, logger)
 def main():
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGPIPE, signal_handler)
-    check_argv()
+    apply_configuration()
     read_from_fifo()
 
 
@@ -32,9 +31,11 @@ def read_from_fifo():
     global requestsHandler
     global browserEventsHandler
     print(infos.START)
+    logger.log(infos.START)
     try:
         with open(FIFO_PATH, "rb") as fifo:
             print("FIFO opened")
+            logger.log("FIFO opened")
             while True:
                 data = fifo.read(FirstEventData.SIZE_OF_EVENT_DATA)
                 event_data = FirstEventData(data)
@@ -52,27 +53,20 @@ def read_from_fifo():
         raise e
 
 
-def check_argv():
-    """Using argparse library this function check arguments and set any variable required to be set"""
-    global FIFO_PATH
+def apply_configuration():
+    """This function read configuration from file system and set it"""
     global browserEventsHandler
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-v", "--verbose", help="If set show a notification for every event detected even if they have 0 malicious entries", action="store_true")
-    parser.add_argument("api-key", help="The API key from virus total website(account required)")
-    parser.add_argument("--nt", help="The timeout, expressed in SECONDS, for notifications - DEFAULT is 5", default=5, type=int)
-    args = parser.parse_args()
-    if args.verbose:
-        browserEventsHandler.__setattr__('verbose', True)
+    global requestsHandler
+    apikey = ''
 
+    with open(CONFIG_PATH, "r") as f:
+        for line in f:
+            if 'verbosity=true' or 'verbosity=True' in line:
+                browserEventsHandler.__setattr__('verbose', True)
+            if 'apikey' in line:
+                apikey = line.split('=')[1]
     try:
-        browserEventsHandler.__getattribute__('notify_handler').set_timeout(args.nt)
-    except Exception as e:
-        print(errors.INVALID_ARGV.format(fun=check_argv.__name__, e=e))
-        logger.log(errors.INVALID_ARGV.format(fun=check_argv.__name__, e=e))
-        exit(-1)
-
-    try:
-        requestsHandler.setAPIKey(args.__getattribute__('api-key'))
+        requestsHandler.setAPIKey(apikey)
     except Exception as e:
         print(errors.INVALID_ARGV.format(fun=requestsHandler.setAPIKey.__name__, e=e))
         logger.log(errors.INVALID_ARGV.format(fun=requestsHandler.setAPIKey.__name__, e=e))

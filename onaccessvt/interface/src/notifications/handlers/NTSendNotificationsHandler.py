@@ -6,7 +6,7 @@ from notifications.Notification import Notification
 
 class NTSendNotificationsHandler(NotificationsHandler):
     """Implementation of NotificationsHandler based on notify-send linux software"""
-    notification_timeout = 1000  # milliseconds
+    notification_timeout = 5000  # milliseconds
     last_call = 0
 
     def notify(self, notification: Notification) -> None:
@@ -30,9 +30,6 @@ class NTSendNotificationsHandler(NotificationsHandler):
             ]
         )
         self.last_call = millis.millis()
-
-    def set_timeout(self, seconds : int):
-        NTSendNotificationsHandler.notification_timeout  *= seconds
 
 
     def isReady(self) -> bool:
