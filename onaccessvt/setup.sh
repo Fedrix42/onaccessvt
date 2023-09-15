@@ -10,7 +10,7 @@ sudo apt install python3-tk
 #Compile monitor
 gcc ./monitor/src/main.c ./monitor/src/mark.c ./monitor/src/logger.c -o ./monitor/bin/onaccessvt_monitor
 
-sudo cp -r ../onaccessvt /opt/onaccessvt
+sudo cp -r ../onaccessvt /opt/
 sudo chown -R $user:$user /opt/onaccessvt/
 sudo mkdir /var/log/onaccessvt 
 sudo mkdir /var/log/onaccessvt/interface
