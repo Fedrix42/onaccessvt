@@ -1,17 +1,19 @@
 #!/usr/bin/python3
 from data_types.FirstEventData import FirstEventData
 from additionals.messages import infos, errors
+from additionals.Logger import Logger
 from requests_handlers.VTRequestsHandler import VTRequestsHandler
 from events_handlers.BrowserEventsHandler import BrowserEventsHandler
 import os
 import sys
 import signal
-from pathlib import Path
+
 import argparse
 
 FIFO_PATH = "/tmp/on_accessvt_fifo"
 requestsHandler = VTRequestsHandler()
-browserEventsHandler = BrowserEventsHandler(requestsHandler)
+logger = Logger()
+browserEventsHandler = BrowserEventsHandler(requestsHandler, logger)
 
 
 
@@ -38,14 +40,14 @@ def read_from_fifo():
                 event_data = FirstEventData(data)
                 browserEventsHandler.handle_event(event_data)
     except Exception as e:
-        print(
-            errors.EXCEPTION.format(
+        formatted_e = errors.EXCEPTION.format(
                 fun=read_from_fifo.__name__,
                 file=os.path.basename(sys.exc_info()[2].tb_frame.f_code.co_filename),
                 line=sys.exc_info()[2].tb_lineno,
                 e=e,
             )
-        )
+        print(formatted_e)
+        logger.log(formatted_e)
         requestsHandler.getClient().close()
         raise e
 
@@ -66,12 +68,14 @@ def check_argv():
         browserEventsHandler.__getattribute__('notify_handler').set_timeout(args.nt)
     except Exception as e:
         print(errors.INVALID_ARGV.format(fun=check_argv.__name__, e=e))
+        logger.log(errors.INVALID_ARGV.format(fun=check_argv.__name__, e=e))
         exit(-1)
 
     try:
         requestsHandler.setAPIKey(args.__getattribute__('api-key'))
     except Exception as e:
         print(errors.INVALID_ARGV.format(fun=requestsHandler.setAPIKey.__name__, e=e))
+        logger.log(errors.INVALID_ARGV.format(fun=requestsHandler.setAPIKey.__name__, e=e))
         requestsHandler.getClient().close()
         exit(-1)
 
@@ -79,6 +83,7 @@ def check_argv():
 def signal_handler(sig, frame):
     """Handle signal like SIGTERM to shutdown properly"""
     os.write(sys.stdout.fileno(), b"\nTerminating...\n")
+    logger.log("\nTerminating...\n")
     requestsHandler.getClient().close()
     sys.exit(0)
 

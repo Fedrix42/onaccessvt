@@ -1,8 +1,8 @@
 import os
 import time
 import tkinter.messagebox
-from additionals import millis
 from additionals.messages import infos
+from additionals.Logger import Logger
 from data_types.EventData import EventData
 from events_handlers.EventsHandler import EventsHandler
 from requests_handlers.RequestsHandler import RequestsHandler
@@ -10,8 +10,8 @@ from requests_handlers.RequestsHandler import RequestsHandler
 
 class BrowserEventsHandler(EventsHandler):
 
-    def __init__(self, rhandler: RequestsHandler):
-        super().__init__(rhandler)
+    def __init__(self, rhandler: RequestsHandler, logger : Logger):
+        super().__init__(rhandler, logger)
 
     def call_request(self, event_data: EventData) -> None:
         super().call_request(event_data)

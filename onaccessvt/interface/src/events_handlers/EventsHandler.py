@@ -9,10 +9,10 @@ from additionals.messages import errors
 
 
 class EventsHandler(ABCEventsHandler):
-    def __init__(self, requestHandler: RequestsHandler) -> None:
+    def __init__(self, requestHandler: RequestsHandler, logger : Logger) -> None:
         self.requestHandler = requestHandler
         self.notify_handler = NTSendNotificationsHandler()
-        self.logger = Logger()
+        self.logger = logger
         self.verbose = False
 
     def handle_event(self, event_data: EventData) -> None:
