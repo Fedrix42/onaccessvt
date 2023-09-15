@@ -27,26 +27,26 @@ I was searching for a security solution for my linux distro but I found ClamAV r
 
 ## [Requirements check](check_requirements.md)
 ## Installation
-### Download the repository from github and unzip it(You can use curl, wget, git or use the download button)
+### 1. Download the repository from github and unzip it(You can use curl, wget, git or use the download button)
 ```
 git clone https://github.com/Fedrix42/onaccessvt.git
 ```
-### Open file onaccessvt_interface.start and set the environment variable according to the comment.
+### 2. Open file onaccessvt_interface.start and set the environment variable according to the comment.
 ```
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 #This environment variable should be set according to the value you find doing: env | grep DBUS_SESSION_BUS_ADDRESS  
 #Default value should work in most of the cases I guess
 ```
-### Open setup.sh and change the variable 'user' with your OS user
+### 3. pen setup.sh and change the variable 'user' with your OS user
 You can check your username in terminal by typing:
 ```
 whoami
 ```
 
-### Configurations
+### 4. Configurations
 * Set the folders you want to monitor in file onaccessvt/monitor/monitor.config according to comments.
 * Set your api-key and the verbosity in file onaccessvt/interface/interface.config according to comments.
-### Final step
+### 5. Final step
 **Be sure you are into the folder containing setup.sh**
 ```
 chmod +x setup.sh && sudo ./setup.sh
