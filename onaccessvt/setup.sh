@@ -23,7 +23,7 @@ sudo chown -R $user:$user /var/log/onaccessvt/
 
 #Adding crontab for onaccessvt interface to user
 sudo -u $user crontab -l > mycron
-echo "@reboot /opt/onaccessvt/onaccessvt.start" >> mycron
+echo "@reboot /opt/onaccessvt/onaccessvt_interface.start" >> mycron
 sudo -u $user crontab mycron
 rm mycron
 
