@@ -8,7 +8,7 @@ sudo apt install python3-tk
 
 #Compile monitor
 mkdir ./monitor/bin/
-gcc ./monitor/src/main.c ./monitor/src/mark.c ./monitor/src/logger.c -o ./monitor/bin/onaccessvt_monitor
+gcc ./monitor/src/main.c ./monitor/src/mark.c ./monitor/src/logger.c ./monitor/src/set_config.c -o ./monitor/bin/onaccessvt_monitor
 chmod +x ./monitor/bin/onaccessvt_monitor
 
 #Copy current folder into /opt
