@@ -1,3 +1,4 @@
+#!/bin/bash
 user='Insert your user here'
 monitor_args='Insert Monitor Args Here(See README)'
 
