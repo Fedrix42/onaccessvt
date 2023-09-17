@@ -68,7 +68,7 @@ gcc onaccessvt/monitor/src/main.c onaccessvt/monitor/src/mark.c onaccessvt/monit
   * /tmp/on_accessvt_fifo --> Named pipe/fifo created for IPC, deleted when monitor component shuts down
   * `crontab -e` --> Contains the crontab directives to start the monitor and the interface at boot
 
-First thing you can check are the arguments. The folders you specify in the monitor argument should exists and the API key in the interface arguments should be valid(Check logs for this types of errors).\
+First thing you can check are the configurations. The folders you specify in the monitor config should exists and the API key in the interface config should be valid(Check logs for this types of errors).\
 Then you should check that crontab records was created correctly:
 ```
 crontab -e
