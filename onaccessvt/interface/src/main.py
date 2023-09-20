@@ -58,14 +58,15 @@ def apply_configuration():
     global browserEventsHandler
     global requestsHandler
     apikey = ''
-
+    
     with open(CONFIG_PATH, "r") as f:
         for line in f:
             if 'verbosity=true' or 'verbosity=True' in line:
                 browserEventsHandler.__setattr__('verbose', True)
             if 'apikey' in line:
-                apikey = line.split('=')[1]
+                apikey = line.split('=')[1].replace('\n', '')
     try:
+        #print(apikey.encode()) Debug
         requestsHandler.setAPIKey(apikey)
     except Exception as e:
         print(errors.INVALID_ARGV.format(fun=requestsHandler.setAPIKey.__name__, e=e))
