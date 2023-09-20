@@ -37,7 +37,7 @@ export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 #This environment variable should be set according to the value you find doing: env | grep DBUS_SESSION_BUS_ADDRESS  
 #Default value should work in most of the cases I guess
 ```
-### 3. pen setup.sh and change the variable 'user' with your OS user
+### 3. Open setup.sh and change the variable 'user' with your OS user
 You can check your username in terminal by typing:
 ```
 whoami
