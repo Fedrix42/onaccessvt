@@ -7,7 +7,7 @@
 
 static FILE *config_file_ptr;
 bool recursive = false;
-char monitored_folders[PATH_MAX][MAX_FOLDERS_SUPPORTED];
+char *monitored_folders[MAX_FOLDERS_SUPPORTED];
 int input_dir_counter = 0;
 
 void set_config(){
@@ -17,11 +17,15 @@ void set_config(){
 }
 
 void read_content(){
-    char line[PATH_MAX];
+    //char line[PATH_MAX];
+    char *line = malloc(sizeof(char)*PATH_MAX);
+    size_t len = 0;
+    ssize_t read;
 
-    while(fgets(line, sizeof(line), config_file_ptr)){
-        //printf("%s\n", line);
+    while((read = getline(&line, &len, config_file_ptr)) != -1){
+        //printf("Line: %s\n", line);
         if(strstr(line, "#") != NULL){
+            memset(line, 0x00, sizeof(line));
             continue;
         }
         if(strstr(line, "recursive") != NULL){
@@ -29,12 +33,21 @@ void read_content(){
                 recursive = true;
             }
         } else {
-            //printf("Size of line: %ld\n", strlen(line));
-            if (line[strlen(line) - 1] == '\n')
+            //printf("Size of line: %ld\n", strlen(line)); //Debug
+            if (line[strlen(line) - 1] == '\n'){
                 line[strlen(line) - 1] = '\0';
-            strcpy(monitored_folders[input_dir_counter], line);
+            }
+            monitored_folders[input_dir_counter] = malloc(sizeof(char)*(strlen(line)+1));
+            str_copy(monitored_folders[input_dir_counter], line);
+            monitored_folders[input_dir_counter][strlen(line)] = '\0';
             input_dir_counter++;
         }
-        memset(line, 0x00, sizeof(line));
+    }
+    
+}
+
+static void str_copy(char *destination_string, char *source_string){
+    for(int c = 0; source_string[c] != '\0'; ++c){
+        destination_string[c] = source_string[c];
     }
 }

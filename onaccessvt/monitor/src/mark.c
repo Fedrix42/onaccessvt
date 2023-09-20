@@ -36,24 +36,21 @@ int mark(int fanotify_fd, bool recursive){
 static void add_mark(){
 	/*Mark one or more directories based on monitored_folders got by config file so we can monitor thoose monitored_folders*/
 	monitored_dir_counter = input_dir_counter;
-	char *input_path;
-	char *marked_absolute_path;
-	for(size_t i = 0; i < input_dir_counter; i++){
-		input_path = monitored_folders[i];
-		marked_absolute_path = realpath(input_path, NULL);
-		CHECK(fanotify_mark(fd, FAN_MARK_ADD, fan_mask, AT_FDCWD, input_path));
-		logToFile(MSG_MONITORING_IN, marked_absolute_path);
+	char *folder_path;
+	for(int i = 0; i < input_dir_counter; i++){
+		folder_path = monitored_folders[i];
+		mark_with_checks(folder_path);
 	}
 }
 
 static void add_mark_recursive(){
 	/*Mark directories in a recursive way using nftw to go through the path tree*/
 	int nftw_result;
-	char *input_path;
+	char *folder_path;
 
-	for(size_t i = 0; i < input_dir_counter; i++){
-		input_path = monitored_folders[i];
-		CHECK(nftw(input_path, add_entry, USE_FDS, FTW_PHYS));
+	for(int i = 0; i < input_dir_counter; i++){
+		folder_path = monitored_folders[i];
+		CHECK(nftw(folder_path, add_entry, USE_FDS, FTW_PHYS));
 	}
 	
 }
@@ -61,10 +58,23 @@ static void add_mark_recursive(){
 static int add_entry(const char *filepath, const struct stat *info, const int typeflag, struct FTW *pathinfo){
 	/*This function is called for every entry found by the nftw function*/
 	if(S_ISDIR(info->st_mode)){
-		/*Check if the entry is a folder, print a message and mark it*/
-		logToFile(MSG_MONITORING_IN, filepath); //Debug
+		/*Check if the entry is a folder and mark it*/
+		mark_with_checks(filepath); //FilePath corresponds to FolderPath
 		monitored_dir_counter++;
-		CHECK(fanotify_mark(fd, FAN_MARK_ADD, fan_mask, AT_FDCWD, filepath));
 	}
 	return 0;
+}
+
+static void mark_with_checks(const char* folder_path){
+	int mark_returned = fanotify_mark(fd, FAN_MARK_ADD, fan_mask, AT_FDCWD, folder_path);
+	if(mark_returned == -1){
+		if(errno == ENOENT){
+			logToFile("ERROR (__mark_with_checks__()) -- Directory %s does not exists!", folder_path);
+		} else {
+			logToFile("ERROR (__mark_with_checks__()) -- %s", strerror(errno));
+		}
+		exit(EXIT_FAILURE);
+	}else {
+		logToFile(MSG_MONITORING_IN, folder_path);
+	}
 }

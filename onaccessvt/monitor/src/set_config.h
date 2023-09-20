@@ -5,10 +5,11 @@
 #include <limits.h>
 
 extern bool recursive;
-extern char monitored_folders[PATH_MAX][MAX_FOLDERS_SUPPORTED];
+extern char *monitored_folders[MAX_FOLDERS_SUPPORTED];
 extern int input_dir_counter;
 
 void set_config();
 void read_content();
+static void str_copy(char *destination_string, char *source_string);
 
 #endif
