@@ -75,4 +75,4 @@ class FirstEventData(EventData):
 
     def format_notification_body(self) -> str:
         """Format a string with event data for notification purpuse"""
-        return infos.NOTI_EVENT_DATA_BODY.format(abs=self.absolutePath)
+        return infos.NOTI_EVENT_DATA_BODY.format(abs=self.static_abs_path)
