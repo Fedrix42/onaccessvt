@@ -31,7 +31,7 @@ I was searching for a security solution for my linux distro but I found ClamAV r
 ```
 git clone https://github.com/Fedrix42/onaccessvt.git
 ```
-### 2. Open file onaccessvt_interface.start and set the environment variable according to the comment.
+### 2. Open file onaccessvt_interface.start(inside onaccessvt dir) and set the environment variable according to the comment.
 ```
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 #This environment variable should be set according to the value you find doing: env | grep DBUS_SESSION_BUS_ADDRESS  
