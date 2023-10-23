@@ -1,10 +1,24 @@
 #!/bin/bash
-user='fedrix'
+user='username'
 
 #Check if script is runned with sudo
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
    exit 1
+fi
+
+#Check if python3 is installed
+which python3
+if ! [ $? -eq 0 ]; then 
+	echo "python3 is not installed!"
+	exit 1 
+fi
+
+#Check if pip is installed
+which pip
+if ! [ $? -eq 0 ]; then
+	echo "Installing pip for python3 using apt...."	
+	sudo apt install python3-pip
 fi
 
 #---Dependencies
