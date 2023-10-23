@@ -14,6 +14,10 @@ CONFIG_FANOTIFY=y
 CONFIG_FANOTIFY_ACCESS_PERMISSIONS=y
 ```
 If you see ` CONFIG_FANOTIFY_ACCESS_PERMISSIONS is not set ` the software `will not work`.
+## python3
+```
+python3 --version
+```
 ## gcc
 ```
 gcc --version
