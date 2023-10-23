@@ -1,7 +1,7 @@
 # OnAccess VirusTotal Scanner
 OnAccess VirusTotal Scanner (OnAccessVT shortened) is a software, designed for linux, which scans files created in specified directories using VirusTotal engine.\
 The tool does not yet supports file uploading so it makes a requests to VirusTotal API with the file HASH, retrieve the answer and display the result to the user.\
-![Screenshot from 2023-09-14 18-09-11](https://github.com/Fedrix42/onaccessvt/assets/144663254/f668a7f8-8e0b-4b65-99b5-551cff1519b8)
+![File Scan Notification](https://github.com/Fedrix42/onaccessvt/assets/144663254/4e4663ab-c1db-4f72-94a2-fe79276e9de4)
 
 Features:
 * Automatic detection of browser downloads
