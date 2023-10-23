@@ -19,6 +19,7 @@ I was searching for a security solution for my linux distro but I found ClamAV r
   * VirusTotal Account with a API-KEY, currently free with some limitations: [VT Public API limitations](https://developers.virustotal.com/reference/public-vs-premium-api)
   * Linux kernel version >= 5.9
   * Linux kernel fanotify API enabled
+  * python3 (Usually pre-installed with OS)
   * gcc (Usually pre-installed with OS, is a compiler for C language)
   * notify-send (Usually pre-installed with OS, is a tool used to send notifications to the user)
 ### Dependencies (Installed by setup.sh)
@@ -26,28 +27,29 @@ I was searching for a security solution for my linux distro but I found ClamAV r
   * python3-tk -> Is a GUI library for Python3
 
 ## [Requirements check](check_requirements.md)
-## Installation
-### 1. Download the repository from github and unzip it(You can use curl, wget, git or use the download button)
+## Installation (!Check requirements before this step!)
+### 1. Download the repository from github and unzip it (You can use curl, wget, git or use the download button)
 ```
 git clone https://github.com/Fedrix42/onaccessvt.git
 ```
-### 2. Open file onaccessvt_interface.start(inside onaccessvt dir) and set the environment variable according to the comment.
+### 2. Open text file */onaccessvt/onaccessvt/onaccessvt_interface.start* and set the environment variable according to the comment.
 ```
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 #This environment variable should be set according to the value you find doing: env | grep DBUS_SESSION_BUS_ADDRESS  
 #Default value should work in most of the cases I guess
 ```
-### 3. Open setup.sh and change the variable 'user' with your OS user
+
+### 3. Open */onaccessvt/onaccessvt/setup.sh* and change the variable 'user' with your OS user
 You can check your username in terminal by typing:
 ```
 whoami
 ```
 
 ### 4. Configurations
-* Set the folders you want to monitor in file onaccessvt/monitor/monitor.config according to comments.
-* Set your api-key and the verbosity in file onaccessvt/interface/interface.config according to comments.
+* Set the folders you want to monitor in file */onaccessvt/onaccessvt/monitor/monitor.config* according to comments.
+* Set your api-key and the verbosity in file */onaccessvt/onaccessvt/interface/interface.config* according to comments.
 ### 5. Final step
-**Be sure you are into the folder containing setup.sh**
+Into /onaccessvt/onaccessvt:
 ```
 chmod +x setup.sh && sudo ./setup.sh
 ```
