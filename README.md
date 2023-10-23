@@ -65,7 +65,9 @@ gcc onaccessvt/monitor/src/main.c onaccessvt/monitor/src/mark.c onaccessvt/monit
 
 ## Troubleshooting
 ### Folders used by software
-  * Configurations file: /opt/onaccessvt/monitor/monitor.config,/opt/onaccessvt/interface/interface.config
+  * Configurations file:
+            * /opt/onaccessvt/monitor/monitor.config
+            * /opt/onaccessvt/interface/interface.config
   * /opt/onaccessvt --> Contains source code and binaries executed at startup
   * /var/log/onaccessvt --> Contains log file with errors and detected events for interface and monitor components
   * /tmp/on_accessvt_fifo --> Named pipe/fifo created for IPC, deleted when monitor component shuts down
