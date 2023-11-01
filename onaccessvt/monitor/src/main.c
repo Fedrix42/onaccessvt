@@ -22,7 +22,7 @@
 
 //Structures for file descriptor of fanotify notification group and stdin
 static int fanotifty_fd;
-static struct pollfd fds[2];
+static struct pollfd pollfd_ptr;
 
 //Structures for data in fanotify fd
 static struct fanotify_event_metadata buf[EVENTS_BUFFER]; 
@@ -104,11 +104,9 @@ int fan_initialize(){
 	/*Inizialize fanotify notification group with specified arguments based.
 	Check fanotify man page for more info...*/
 	int fd = fanotify_init(fan_init_flags, O_RDONLY | O_LARGEFILE);
-	CHECK(fd);
-	fds[0].fd = STDIN_FILENO;        
-	fds[0].events = POLLIN;          
-	fds[1].fd = fd;     
-	fds[1].events = POLLIN;
+	CHECK(fd);      
+	pollfd_ptr.fd = fd;     
+	pollfd_ptr.events = POLLIN;
 	return fd;
 }
 
@@ -117,24 +115,18 @@ void monitor_events(){
 	/*Check using poll() if there is any event available on the file descriptor for fanotify and STDIN*/
 	int num_of_events;
 	char input_from_user[2];
-	nfds_t size_of_fds = 2;
 
 	while(true){
-		num_of_events = poll(fds, size_of_fds, -1); 
-
+		num_of_events = poll(&pollfd_ptr, 1, -1);
+		
 		if(num_of_events == -1){
-			if (errno == EINTR)     
-               continue;
+			if (errno == EINTR){
+              	continue;
+            }
            	perror("poll"); 
            	exit(EXIT_FAILURE);
 		} else {
-			if (fds[0].revents & POLLIN) {  //Check if there is a event for STDIN(The user can quit by sending q)
-				if(read(STDIN_FILENO, &input_from_user, 2) > 0 && input_from_user[0] == 'q'){
-					break;
-				}
-
-            }
-            if (fds[1].revents & POLLIN) { //Check if there is any event available in the fanotify file descriptor
+            if (pollfd_ptr.revents & POLLIN) { //Check if there is any event available in the fanotify file descriptor
                 handle_events();
             }
 		}
