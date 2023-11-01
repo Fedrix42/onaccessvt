@@ -17,8 +17,7 @@ done
 if ! [[ $(ps -ef | grep onaccessvt_monitor | grep -v grep) ]] #Check if monitor started
 then
 	notify-send -u critical "OnAccessVT Interface Error" "Can't load interface, start onaccessvt_monitor.service first!"
-	echo "Can't load interface, start onaccessvt_monitor.service first!" >> /home/fedrix/Desktop/startERR 
 else
 	notify-send "OnAccessVT Interface Started" "OnAccessVT interface started, monitoring the system..."
-	/usr/bin/python3 /opt/onaccessvt/interface/src/main.py $interface_args
+	/usr/bin/python3 /opt/onaccessvt/interface/src/main.py
 fi
