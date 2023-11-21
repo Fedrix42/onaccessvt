@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from data_types.EventData import EventData
+from data_handles.eventdata.EventData import EventData
 
 
 class EventsHandler(ABC):

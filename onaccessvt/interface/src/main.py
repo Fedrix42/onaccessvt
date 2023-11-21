@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-from data_types.FirstEventData import FirstEventData
+from data_handles.eventdata.FirstEventData import FirstEventData
+from data_handles.eventdata.PIPE_Conversion import SIZE_OF_EVENT_DATA
 from additionals.messages import infos, errors
 from additionals.Logger import Logger
 from requests_handlers.VTRequestsHandler import VTRequestsHandler
@@ -37,7 +38,7 @@ def read_from_fifo():
             print("FIFO opened")
             logger.log("FIFO opened")
             while True:
-                data = fifo.read(FirstEventData.SIZE_OF_EVENT_DATA)
+                data = fifo.read(SIZE_OF_EVENT_DATA)
                 event_data = FirstEventData(data)
                 browserEventsHandler.handle_event(event_data)
     except Exception as e:

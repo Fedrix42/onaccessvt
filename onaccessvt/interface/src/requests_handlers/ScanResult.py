@@ -1,5 +1,5 @@
 import vt
-from data_types.EventData import EventData
+from data_handles.eventdata.EventData import EventData
 from additionals.messages import infos
 
 
@@ -17,7 +17,7 @@ class ScanResult:
     def format_notification_body(self) -> str:
         """Format a string with scan results data for notification purpuse"""
         return infos.NOTI_SCAN_RES_BODY.format(
-            file=self.event_data.__getattribute__('static_abs_path'),
+            file=self.event_data.static_abs_path,
             malicious=self.vtobj.last_analysis_stats["malicious"],
             undetected=self.vtobj.last_analysis_stats["undetected"],
             harmless=self.vtobj.last_analysis_stats["harmless"],

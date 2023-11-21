@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from data_types.EventData import EventData
+from data_handles.eventdata.EventData import EventData
 import vt
 from requests_handlers.RequestsHandler import RequestsHandler
 from requests_handlers.ScanResult import ScanResult

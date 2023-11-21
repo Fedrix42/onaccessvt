@@ -25,8 +25,8 @@ class NTSendNotificationsHandler(NotificationsHandler):
                 str(notification.urgency.value),
                 "-t",
                 exp_time_opt,
-                notification.__getattribute__("title"),
-                notification.__getattribute__("body"),
+                notification.title,
+                notification.body,
             ]
         )
         self.last_call = millis.millis()

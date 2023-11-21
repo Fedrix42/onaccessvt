@@ -1,10 +1,10 @@
-from data_types.EventData import EventData
+from data_handles.eventdata.EventData import EventData
 from events_handlers.EventsHandler import EventsHandler
 from requests_handlers.VTRequestsHandler import RequestsHandler
 from notifications.handlers.NTSendNotificationsHandler import NTSendNotificationsHandler
 from notifications.Notification import Notification
 from additionals.Logger import Logger
-from data_types.UrgencyType import UrgencyType
+from data_handles.UrgencyType import UrgencyType
 from additionals.messages import errors
 
 
@@ -52,13 +52,13 @@ class SafeEventsHandler(EventsHandler):
         except Exception as e:
             #raise e #debug
             self.logger.log(
-                errors.SCAN.format(file=file_data.__getattribute__("entryName"), e=e)
+                errors.SCAN.format(file=file_data.entryName, e=e)
             )
             self.notify_handler.notify(
                 Notification(
                     errors.SCAN_TITLE,
                     errors.SCAN.format(
-                        file=file_data.__getattribute__("entryName"), e=e
+                        file=file_data.entryName, e=e
                     ),
                     UrgencyType.CRITICAL,
                 )
@@ -67,8 +67,8 @@ class SafeEventsHandler(EventsHandler):
     def isResultPotentiallyHarmful(self, result) -> bool:
         """Check if the file have malicous entries"""
         if (
-            int(result.__getattribute__("vtobj").last_analysis_stats["malicious"]) > 0
-            or int(result.__getattribute__("vtobj").total_votes["malicious"]) > 0
+            int(result.vtobj.last_analysis_stats["malicious"]) > 0
+            or int(result.vtobj.total_votes["malicious"]) > 0
         ):
             return True
         return False

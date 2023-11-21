@@ -1,4 +1,4 @@
-from data_types.UrgencyType import UrgencyType
+from data_handles.UrgencyType import UrgencyType
 
 
 class Notification:

@@ -9,5 +9,5 @@ TIMEOUT_REACHED = "Partially downloaded file {file} could not be scanned\n -> Ti
 TIMEOUT_EXCEPTION = (
     "Timeout cannot be higher than {max_m} minutes or lower than {min_m} minutes"
 )
-BUF_LEN = "The length of buffered_data isn't what was expected."
+BUF_LEN = "The length of raw_data isn't what was expected."
 ENTRY_NOT_EXISTS = "Entry does not exists anymore"

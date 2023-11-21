@@ -3,7 +3,7 @@ import time
 import tkinter.messagebox
 from additionals.messages import infos
 from additionals.Logger import Logger
-from data_types.EventData import EventData
+from data_handles.eventdata.EventData import EventData
 from events_handlers.SafeEventsHandler import SafeEventsHandler
 from requests_handlers.RequestsHandler import RequestsHandler
 
@@ -20,12 +20,12 @@ class BrowserEventsHandler(SafeEventsHandler):
         """Checks whenever the file is being downloaded by browser 
         and send a alert to the user to scan it after the download if finished"""
 
-        if event_data.__getattribute__('procinfo').__getattribute__("isABrowser"):
+        if event_data.procinfo.isABrowser:
             time.sleep(1) 
             """This delay is helpful because some browsers create a .part file 
             and some time passes between this code executed and the creation of the .part file"""
             if self.is_download_in_process(event_data):
-                if tkinter.messagebox.askyesno(infos.DIAL_BOX_TITLE, infos.DIAL_BOX_BODY.format(file=event_data.__getattribute__("entryName"))):
+                if tkinter.messagebox.askyesno(infos.DIAL_BOX_TITLE, infos.DIAL_BOX_BODY.format(file=event_data.entryName)):
                     super().handle_event(event_data)
             else:
                 super().handle_event(event_data)
@@ -38,18 +38,10 @@ class BrowserEventsHandler(SafeEventsHandler):
         return self.firefox_check(event_data) or self.chrome_check(event_data)
 
     def firefox_check(self, event_data: EventData):
-        """Check if the file is being downloaded by a firefox browser.
-        Searches for a .part file on the same directory of the event file"""
-        filename = event_data.__getattribute__("entryName")
-        entriesInCWD = [f for f in os.listdir(event_data.__getattribute__('directoryPath'))]
-        for entry in entriesInCWD:
-            if entry.startswith(filename.split(".")[0]) and entry.endswith(".part"):
-                return True
-        return False
+        """To change using behavioral models!"""
+        pass
 
     def chrome_check(self, event_data : EventData):
-        """Check if the file is being downloaded by a chrome browser."""
-        if event_data.__getattribute__("entryName").endswith("crdownload"):
-            return True
-        return False
+        """To change using behavioral models!"""
+        pass
 

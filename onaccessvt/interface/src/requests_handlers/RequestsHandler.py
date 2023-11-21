@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import data_types.EventData as EventData
+import data_handles.eventdata.EventData as EventData
 import vt
 
 
