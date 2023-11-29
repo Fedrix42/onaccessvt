@@ -82,6 +82,7 @@ int main(int argc, char *argv[]){
 
 int fifo_initialize(){
 	/*Initialize the named pipe/fifo and check if there is any error*/
+	// REQUIRE ROOT PRIVILAGE
 	int fd;
 	if(mkfifo(FIFO_PATH, 0666) == -1){
 		if(errno == EEXIST){
@@ -114,7 +115,6 @@ int fan_initialize(){
 void monitor_events(){
 	/*Check using poll() if there is any event available on the file descriptor for fanotify and STDIN*/
 	int num_of_events;
-	char input_from_user[2];
 
 	while(true){
 		num_of_events = poll(&pollfd_ptr, 1, -1);
@@ -135,7 +135,7 @@ void monitor_events(){
 
 void handle_events(){
 	/*Read from fanotify fd and handle every event found*/
-	if(lenght = read(fanotifty_fd, buf, EVENTS_BUFFER)){
+	if((lenght = read(fanotifty_fd, buf, EVENTS_BUFFER))){
 		if(lenght > 0){
 			metadata = (struct fanotify_event_metadata*)buf;
 
@@ -169,7 +169,7 @@ void process_event(struct fanotify_event_metadata *metadata){
 	*/
 
 	//Get the entry name which is then stored in a char array on the e_data struct
-	char *temp_entry_name = targeted_file_handle->f_handle + targeted_file_handle->handle_bytes;
+	char *temp_entry_name = (char*)targeted_file_handle->f_handle + targeted_file_handle->handle_bytes;
 	for(int c = 0, lenght = strlen(temp_entry_name); c < lenght; ++c){
 		e_data.entryname[c] = temp_entry_name[c];
 	}

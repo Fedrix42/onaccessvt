@@ -34,6 +34,7 @@ void create_log_file(){
 		printf("ERROR (%s:%d) -- %s\n, ",__FILE__, __LINE__, strerror(errno));
 		exit(EXIT_FAILURE);
 	}
+	free(log_filename);
 }
 
 void closeLogFile(){

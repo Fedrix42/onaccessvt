@@ -11,6 +11,7 @@ extern int input_dir_counter;
 void set_config();
 void read_content();
 void free_monitored_folders();
-static void str_copy(char *destination_string, char *source_string);
+void clear_monitored_folders_pointers();
+void str_copy(char *destination_string, char *source_string);
 
 #endif

@@ -34,7 +34,7 @@ int mark(int fanotify_fd, bool recursive){
 	return monitored_dir_counter;
 }
 
-static void add_mark(){
+void add_mark(){
 	/*Mark one or more directories based on monitored_folders got by config file so we can monitor thoose monitored_folders*/
 	monitored_dir_counter = input_dir_counter;
 	char *folder_path;
@@ -44,9 +44,8 @@ static void add_mark(){
 	}
 }
 
-static void add_mark_recursive(){
+void add_mark_recursive(){
 	/*Mark directories in a recursive way using nftw to go through the path tree*/
-	int nftw_result;
 	char *folder_path;
 
 	for(int i = 0; i < input_dir_counter; i++){
@@ -56,7 +55,7 @@ static void add_mark_recursive(){
 	
 }
 
-static int add_entry(const char *filepath, const struct stat *info, const int typeflag, struct FTW *pathinfo){
+int add_entry(const char *filepath, const struct stat *info, const int typeflag, struct FTW *pathinfo){
 	/*This function is called for every entry found by the nftw function*/
 	if(S_ISDIR(info->st_mode)){
 		/*Check if the entry is a folder and mark it*/
@@ -66,7 +65,7 @@ static int add_entry(const char *filepath, const struct stat *info, const int ty
 	return 0;
 }
 
-static void mark_with_checks(const char* folder_path){
+void mark_with_checks(const char* folder_path){
 	int mark_returned = fanotify_mark(fd, FAN_MARK_ADD, fan_mask, AT_FDCWD, folder_path);
 	if(mark_returned == -1){
 		if(errno == ENOENT){

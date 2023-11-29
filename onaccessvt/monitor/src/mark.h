@@ -5,10 +5,10 @@
 #define USE_FDS 15
 
 int mark(int fanotify_fd, bool recursive);
-static void add_mark();
-static void add_mark_recursive();
-static int add_entry(const char *filepath, const struct stat *info, const int typeflag, struct FTW *pathinfo);
-static void mark_with_checks(const char* folder_path);
+void add_mark();
+void add_mark_recursive();
+int add_entry(const char *filepath, const struct stat *info, const int typeflag, struct FTW *pathinfo);
+void mark_with_checks(const char* folder_path);
 
 
 #endif
