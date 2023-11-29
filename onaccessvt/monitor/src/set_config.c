@@ -37,13 +37,23 @@ void read_content(){
             if (line[strlen(line) - 1] == '\n'){
                 line[strlen(line) - 1] = '\0';
             }
+            if(input_dir_counter >= MAX_FOLDERS_SUPPORTED)
+                break;
             monitored_folders[input_dir_counter] = malloc(sizeof(char)*(strlen(line)+1));
             str_copy(monitored_folders[input_dir_counter], line);
             monitored_folders[input_dir_counter][strlen(line)] = '\0';
             input_dir_counter++;
         }
     }
-    
+    free(line);
+    line = NULL;
+}
+
+void free_monitored_folders(){
+    for(int i = 0; i < input_dir_counter; ++i){
+        free(monitored_folders[i]);
+    }
+    monitored_folders[0] = NULL;
 }
 
 static void str_copy(char *destination_string, char *source_string){

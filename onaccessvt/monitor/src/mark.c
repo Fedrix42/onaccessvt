@@ -30,6 +30,7 @@ int mark(int fanotify_fd, bool recursive){
 		add_mark_recursive();
 	else
 		add_mark();
+	free_monitored_folders();
 	return monitored_dir_counter;
 }
 
