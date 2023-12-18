@@ -2,7 +2,7 @@
 import hashlib
 from pathlib import Path
 import os
-from data_handles.process_info.RoughProcInfo import RoughProcInfo
+from data_handles.process_info.PSUtilProcInfo import PSUtilProcInfo
 from additionals.messages import infos, errors
 from data_handles.eventdata.EventData import EventData
 import data_handles.eventdata.PIPE_Conversion as PIPE_Converter
@@ -21,7 +21,7 @@ class FirstEventData(EventData):
         self.entryName = PIPE_Converter.extract_entryName(raw_data)
         #Constucting useful attributes
         self.static_abs_path = Path(''.join([self.directoryPath.__str__(), '/', self.entryName])) #Static path of the file, it doesn't update
-        self.procinfo = RoughProcInfo(self.pid)
+        self.procinfo = PSUtilProcInfo(self.pid)
         
 
     def get_dynamic_abs_path(self) -> Path:
