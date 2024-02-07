@@ -12,8 +12,8 @@ File:{file}
      Harmless -> {harmless}
 Community votes(Harmless -> {votes_harmless} || Malicious -> {votes_malicious})
 """
-DIAL_BOX_TITLE="OnAccessVT - User action required"
-DIAL_BOX_BODY="File: {file} is being downloaded by a browser.\nIf you want to scan it, press 'YES' ONLY when the download is finished"
+DOWNLOAD_WAITING_TITLE="OnAccessVT - {bname} download detected" #Browser name
+DOWNLOAD_WAITING_BODY="The download of a file was detected.\nIt will be scanned when the download ends."
 LOG_HEADER="\n=====   {date}   =====\n"
 LOG_FOOTER="\n==========================================\n"
 

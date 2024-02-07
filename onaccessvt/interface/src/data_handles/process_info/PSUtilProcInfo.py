@@ -6,7 +6,7 @@ from data_handles.process_info.Browsers import Browsers
 
 class PSUtilProcInfo(ProcInfo):
     BROWSER_NAMES = [
-        {"chrome", "chromium"},
+        {"chrome", "chromium", "xdg-document-portal", "xdg"},
         {"firefox", "mozilla"}
     ]
 

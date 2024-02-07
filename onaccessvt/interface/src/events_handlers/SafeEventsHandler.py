@@ -11,19 +11,16 @@ from additionals.messages import errors
 class SafeEventsHandler(EventsHandler):
     def __init__(self, requestHandler: RequestsHandler, logger : Logger) -> None:
         self.requestHandler = requestHandler
-        self.notify_handler = NTSendNotificationsHandler()
         self.logger = logger
         self.verbose = False
 
     def handle_event(self, event_data: EventData) -> None:
-        self.put_out_data(event_data)
+        self.logger.log(event_data.to_log())
         self.call_request(event_data)
 
-    def put_out_data(self, event_data: EventData):
-        """Log the event and notify the user of the event if verbose is true"""
-        self.logger.log(event_data.to_log())
+    def user_alert(self, event_data: EventData) -> None:
         if self.verbose:
-            self.notify_handler.notify(
+            NTSendNotificationsHandler.notify(
                 Notification(
                     event_data.format_notification_title(),
                     event_data.format_notification_body(),
@@ -42,7 +39,7 @@ class SafeEventsHandler(EventsHandler):
                 + result.format_notification_body()
             )
             if self.verbose or self.isResultPotentiallyHarmful(result):
-                self.notify_handler.notify(
+                NTSendNotificationsHandler.notify(
                     Notification(
                         result.format_notification_title(),
                         result.format_notification_body(),
@@ -54,7 +51,7 @@ class SafeEventsHandler(EventsHandler):
             self.logger.log(
                 errors.SCAN.format(file=file_data.entryName, e=e)
             )
-            self.notify_handler.notify(
+            NTSendNotificationsHandler.notify(
                 Notification(
                     errors.SCAN_TITLE,
                     errors.SCAN.format(
@@ -72,4 +69,4 @@ class SafeEventsHandler(EventsHandler):
         ):
             return True
         return False
-
+    

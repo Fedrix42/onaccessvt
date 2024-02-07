@@ -9,13 +9,13 @@ class NTSendNotificationsHandler(NotificationsHandler):
     notification_timeout = 5000  # milliseconds
     last_call = 0
 
-    def notify(self, notification: Notification) -> None:
+    def notify(notification: Notification) -> None:
         """Send the notificaton when the user is ready"""
-        while not self.isReady():
+        while not NTSendNotificationsHandler.isReady():
             pass
-        self.send(notification)
+        NTSendNotificationsHandler.send(notification)
 
-    def send(self, notification: Notification) -> None:
+    def send(notification: Notification) -> None:
         """Send the notification to the user"""
         exp_time_opt = str(NTSendNotificationsHandler.notification_timeout)
         subprocess.Popen(
@@ -29,12 +29,12 @@ class NTSendNotificationsHandler(NotificationsHandler):
                 notification.body,
             ]
         )
-        self.last_call = millis.millis()
+        NTSendNotificationsHandler.last_call = millis.millis()
 
 
-    def isReady(self) -> bool:
+    def isReady() -> bool:
         """Check if the user is ready to receive a new notification(To avoid collisions)"""
-        if (millis.millis() - self.last_call) < (
+        if (millis.millis() - NTSendNotificationsHandler.last_call) < (
             NTSendNotificationsHandler.notification_timeout * 1.1
         ):
             return False

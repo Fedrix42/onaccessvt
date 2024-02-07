@@ -5,14 +5,13 @@ from data_handles.eventdata.EventData import EventData
 class EventsHandler(ABC):
     """Manage events to verify when and how files need to be scanned"""
     @abstractmethod
-    def handle_event(
-        self, event_data: EventData
-    ):  
+    def handle_event(self, event_data: EventData):
+        """Log the event and send the scan request"""
         pass
 
     @abstractmethod
-    def put_out_data(self, event_data: EventData): 
-        """Sends data to appropiate components to log them or to inform the user"""
+    def user_alert(self, event_data: EventData): 
+        """Sends a notification to the user to inform the new event detection"""
         pass
 
     @abstractmethod
