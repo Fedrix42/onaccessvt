@@ -23,6 +23,7 @@ fi
 
 #---Dependencies
 sudo -u $user pip install vt-py
+sudo -u $user pip install psutil
 #---Dependencies
 
 #Compile monitor
