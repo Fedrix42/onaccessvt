@@ -23,7 +23,6 @@ fi
 
 #---Dependencies
 sudo -u $user pip install vt-py
-sudo apt install python3-tk
 #---Dependencies
 
 #Compile monitor

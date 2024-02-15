@@ -1,17 +1,18 @@
 # OnAccess VirusTotal Scanner
-OnAccess VirusTotal Scanner (OnAccessVT shortened) is a software, designed for linux, which scans files created in specified directories using VirusTotal engine.\
-The tool does not yet supports file uploading so it makes a requests to VirusTotal API with the file HASH, retrieve the answer and display the result to the user.\
+OnAccess VirusTotal Scanner (OnAccessVT shortened) is a software, designed for linux, which scans files created in specified directories using the VirusTotal engine.\
+The tool does not yet supports file uploading so it makes a requests to VirusTotal API using the file HASH then it retrieves the result and displays the result to the user.\
 ![File Scan Notification](https://github.com/Fedrix42/onaccessvt/assets/144663254/4e4663ab-c1db-4f72-94a2-fe79276e9de4)
 
 Features:
 * Automatic detection of browser downloads
-* Recursive mode
+* Recursive mode (enables monitoring in subfolders)
 * Multiple folders monitoring
 * Notifications and event logging
 
 **Software is currently tested and working on Ubuntu 22.04 and 23.04, not guaranteed it works on other environments**
+
 ## Check other solutions
-This project is ispired by [ClamAV](https://www.clamav.net/) OnAccess scanning feature.\
+This project is ispired by [ClamAV's](https://www.clamav.net/) OnAccess scanning feature.\
 I was searching for a security solution for my linux distro but I found ClamAV really slow when doing scanning(I mean, that's a real malware scan while here we are doing just a request to third-party service).\
 **So if you want a real anti-virus/anti-malware go for ClamAV**, if you are looking for a less stable but lightweight solution then this may help you.
 
