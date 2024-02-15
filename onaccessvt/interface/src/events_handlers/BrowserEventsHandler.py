@@ -1,11 +1,7 @@
 import time
-import tkinter.messagebox
-from additionals.messages import infos
 from additionals.Logger import Logger
-from data_handles.UrgencyType import UrgencyType
 from data_handles.eventdata.EventData import EventData
 from events_handlers.SafeEventsHandler import SafeEventsHandler
-from notifications.Notification import Notification
 from requests_handlers.RequestsHandler import RequestsHandler
 from data_handles.process_info.Browsers import Browsers
 from events_handlers.browser_download_handlers.DHandlerFactory import DHandlerFactory
