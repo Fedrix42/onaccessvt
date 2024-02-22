@@ -26,7 +26,6 @@ I was searching for a security solution for my linux distro but I found ClamAV r
 ### Dependencies (Installed by setup.sh)
   * vt-py -> Is the official VirusTotal API library for Python3
   * ps-util -> Library for system processes for Python3
-  * python3-tk -> Is a GUI library for Python3
 
 ## [Requirements check](check_requirements.md)
 ## Installation (!Check requirements before this step!)
