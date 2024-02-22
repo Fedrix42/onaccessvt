@@ -9,7 +9,7 @@ Features:
 * Multiple folders monitoring
 * Notifications and event logging
 
-**Software is currently tested and working on Ubuntu 22.04 and 23.04, not guaranteed it works on other environments**
+**Software is currently tested and working on Ubuntu 22.04, Ubuntu 23.04 and Linux Mint Cinnamon EDGE Edition 21.3 EDGE(with kernel 6.5), not guaranteed it works on other environments**
 
 ## Check other solutions
 This project is ispired by [ClamAV's](https://www.clamav.net/) OnAccess scanning feature.\
